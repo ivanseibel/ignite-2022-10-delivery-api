@@ -1,10 +1,30 @@
-version: '3.7'
+version: "3.7"
 
 services:
+  database:
+    image: postgres
+    container_name: database_rentapi
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: docker
+      POSTGRES_DB: rentapi
+    volumes:
+      - pgdata:/data/postgres
+
   app:
     build: .
     container_name: rentapp
     ports:
       - 3333:3333
     volumes:
-      - .:/user/app
+      - .:/usr/app
+    depends_on:
+      - database
+    links:
+      - "database"
+volumes:
+  pgdata:
+    driver: local
