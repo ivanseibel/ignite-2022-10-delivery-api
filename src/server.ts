@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import { databaseConnect } from './database';
 import { router } from './routes';
 import swaggerFile from './swagger.json';
+import './shared/container';
 
 async function init() {
   const app = express();
