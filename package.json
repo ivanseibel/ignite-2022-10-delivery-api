@@ -10,6 +10,8 @@
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "csv-parse": "^5.3.1",
     "express": "^4.18.2",
