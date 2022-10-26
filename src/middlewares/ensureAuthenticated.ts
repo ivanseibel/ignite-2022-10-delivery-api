@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
+import AppError from '../errors/AppError';
 import { UsersRepository } from '../modules/accounts/repositories/Implementations/UsersRepository';
 
 function ensureAuthenticated(
@@ -11,7 +12,7 @@ function ensureAuthenticated(
   const { authorization } = request.headers;
 
   if (!authorization) {
-    return response.status(401).json({ error: 'Token missing' });
+    throw new AppError('Token missing', 401);
   }
 
   const [, token] = authorization.split(' ');
@@ -24,12 +25,13 @@ function ensureAuthenticated(
     const user = usersRepository.findById(user_id as string);
 
     if (!user) {
-      return response.status(401).json({ error: 'User does not exists' });
+      throw new AppError('User does not exists!', 404);
     }
 
     return next();
-  } catch {
-    return response.status(401).json({ error: 'Token invalid' });
+  } catch (error) {
+    const { statusCode, message } = error as AppError;
+    return response.status(statusCode).json({ error: message });
   }
 }
 
