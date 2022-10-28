@@ -11,8 +11,12 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
-  findById(id: string): Promise<User> {
-    const user = this.repository.findOne(id);
+  async update(user: User): Promise<User> {
+    return this.repository.save(user);
+  }
+
+  async findById(id: string): Promise<User> {
+    const user = await this.repository.findOne(id);
     return user;
   }
 

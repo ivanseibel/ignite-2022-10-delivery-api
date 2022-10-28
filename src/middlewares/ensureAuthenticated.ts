@@ -28,6 +28,10 @@ function ensureAuthenticated(
       throw new AppError('User does not exists!', 404);
     }
 
+    request.user = {
+      id: user_id as string,
+    };
+
     return next();
   } catch (error) {
     const { statusCode, message } = error as AppError;
