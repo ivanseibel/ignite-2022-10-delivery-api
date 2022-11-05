@@ -5,10 +5,12 @@ interface IOptions extends PostgresConnectionOptions {
   host: string;
 }
 
-export async function databaseConnect(): Promise<Connection | undefined> {
+export async function databaseConnect(
+  host = 'database'
+): Promise<Connection | undefined> {
   try {
     const connectionOptions = (await getConnectionOptions()) as IOptions;
-    connectionOptions.host = 'database';
+    connectionOptions.host = host;
     const connection = await createConnection({
       ...connectionOptions,
     });
