@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
 
-function ensureAuthenticated(
+async function ensureAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction
@@ -22,7 +22,7 @@ function ensureAuthenticated(
 
     const usersRepository = new UsersRepository();
 
-    const user = usersRepository.findById(user_id as string);
+    const user = await usersRepository.findById(user_id as string);
 
     if (!user) {
       throw new AppError('User does not exists!', 404);
@@ -30,6 +30,7 @@ function ensureAuthenticated(
 
     request.user = {
       id: user_id as string,
+      isAdmin: user.is_admin,
     };
 
     return next();

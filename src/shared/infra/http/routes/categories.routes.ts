@@ -6,8 +6,9 @@ import { ImportCategoryController } from '@modules/cars/useCases/importCategory/
 import { ListCategoriesController } from '@modules/cars/useCases/listCategories/ListCategoriesController';
 import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated';
 
+import { ensureAdmin } from '../middlewares/ensureAdmin';
+
 const categoriesRoutes = Router();
-categoriesRoutes.use(ensureAuthenticated);
 
 const upload = multer({
   dest: './tmp',
@@ -17,9 +18,15 @@ const createCategoryController = new CreateCategoryController();
 const listCategoriesController = new ListCategoriesController();
 const importCategoryController = new ImportCategoryController();
 
-categoriesRoutes.post('/', createCategoryController.handle);
+// Below routes are protected by the ensureAuthenticated middleware
+categoriesRoutes.use(ensureAuthenticated);
 
 categoriesRoutes.get('/', listCategoriesController.handle);
+
+// Below routes are protected by the ensureAdmin middleware
+categoriesRoutes.use(ensureAdmin);
+
+categoriesRoutes.post('/', createCategoryController.handle);
 
 categoriesRoutes.post(
   '/import',
