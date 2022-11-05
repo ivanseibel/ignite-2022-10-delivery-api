@@ -12,6 +12,7 @@ interface IRequest {
   fine_amount: number;
   brand: string;
   category_id: string;
+  available?: boolean;
 }
 
 @injectable()
@@ -29,6 +30,7 @@ class CreateCarUseCase {
     fine_amount,
     brand,
     category_id,
+    available = true,
   }: IRequest): Promise<void> {
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(
       license_plate
@@ -46,7 +48,7 @@ class CreateCarUseCase {
       license_plate,
       fine_amount,
       brand,
-      available: true,
+      available,
       category_id,
       created_at: new Date(),
     });
