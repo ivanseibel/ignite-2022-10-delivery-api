@@ -8,12 +8,10 @@ Delivery REST API
 ### Functional requirements
 
 - Should be able to create a car.
-- Should be possible to list all categories.
 
 ### Business rules
 
 - Should not be possible to create a car with an existing license plate.
-- Should not be possible to update a car license plate.
 - The car should be registered by default with the status "available".
 - Only admin users can create a car.
 
