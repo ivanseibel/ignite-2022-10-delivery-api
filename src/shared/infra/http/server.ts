@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import AppError from '@shared/errors/AppError';
 import { databaseConnect } from '@shared/infra/typeorm';
+import '@shared/container';
 
 import swaggerFile from '../../../swagger.json';
 import { router } from './routes';
@@ -31,6 +32,7 @@ async function init() {
         });
       }
 
+      console.log(err);
       return response.status(500).json({
         message: `Internal server error - ${err.message}`,
       });
