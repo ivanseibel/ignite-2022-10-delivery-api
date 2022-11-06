@@ -7,6 +7,16 @@ import { ICarsRepository } from '../ICarsRepository';
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
 
+  async update(car: Car): Promise<void> {
+    const findIndex = this.cars.findIndex((findCar) => findCar.id === car.id);
+
+    this.cars[findIndex] = car;
+  }
+
+  async findById(id: string): Promise<Car> {
+    return this.cars.find((car) => car.id === id);
+  }
+
   async listAvailable(filters: IListAvailableCarsDTO): Promise<Car[]> {
     const { category_id, brand, name } = filters || {
       category_id: null,
