@@ -37,8 +37,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
   }
 
   async findByLicensePlate(license_plate: string): Promise<Car> {
-    const car = this.cars.find((car) => car.license_plate === license_plate);
-    return car;
+    return this.cars.find((car) => car.license_plate === license_plate);
   }
 
   async create(data: ICreateCarDTO): Promise<void> {
