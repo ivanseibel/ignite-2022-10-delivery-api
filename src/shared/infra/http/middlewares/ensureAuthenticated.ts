@@ -17,27 +17,22 @@ async function ensureAuthenticated(
 
   const [, token] = authorization.split(' ');
 
-  try {
-    const { sub: user_id } = verify(token, 'd757dfd2421525dd8ba7eba884bf644a');
+  const { sub: user_id } = verify(token, 'd757dfd2421525dd8ba7eba884bf644a');
 
-    const usersRepository = new UsersRepository();
+  const usersRepository = new UsersRepository();
 
-    const user = await usersRepository.findById(user_id as string);
+  const user = await usersRepository.findById(user_id as string);
 
-    if (!user) {
-      throw new AppError('User does not exists!', 404);
-    }
-
-    request.user = {
-      id: user_id as string,
-      isAdmin: user.is_admin,
-    };
-
-    return next();
-  } catch (error) {
-    const { statusCode, message } = error as AppError;
-    return response.status(statusCode).json({ error: message });
+  if (!user) {
+    throw new AppError('User does not exists!', 404);
   }
+
+  request.user = {
+    id: user_id as string,
+    isAdmin: user.is_admin,
+  };
+
+  return next();
 }
 
 export { ensureAuthenticated };
