@@ -33,8 +33,6 @@ Delivery REST API
 ### Functional requirements
 
 - Should be able to register a car specification.
-- Should be able to list all car specifications.
-- Should be possible to list all cars.
 
 ### Business rules
 
