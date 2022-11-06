@@ -13,6 +13,14 @@ class CarsRepository implements ICarsRepository {
     this.repository = getRepository(Car);
   }
 
+  async findById(id: string): Promise<Car> {
+    return this.repository.findOne(id);
+  }
+
+  async update(car: Car): Promise<void> {
+    await this.repository.save(car);
+  }
+
   async listAvailable(filters?: IListAvailableCarsDTO): Promise<Car[]> {
     const carsQuery = this.repository
       .createQueryBuilder('c')
