@@ -7,10 +7,12 @@ import { ICarsRepository } from '../ICarsRepository';
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];
 
-  async update(car: Car): Promise<void> {
+  async update(car: Car): Promise<Car> {
     const findIndex = this.cars.findIndex((findCar) => findCar.id === car.id);
 
     this.cars[findIndex] = car;
+
+    return car;
   }
 
   async findById(id: string): Promise<Car> {
@@ -40,12 +42,14 @@ class CarsRepositoryInMemory implements ICarsRepository {
     return this.cars.find((car) => car.license_plate === license_plate);
   }
 
-  async create(data: ICreateCarDTO): Promise<void> {
+  async create(data: ICreateCarDTO): Promise<Car> {
     const car = new Car();
 
     Object.assign(car, data);
 
     this.cars.push(car);
+
+    return car;
   }
 }
 
