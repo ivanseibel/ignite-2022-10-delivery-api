@@ -39,7 +39,7 @@ describe('Create Car Specification', () => {
 
     const specifications = await specificationsRepositoryInMemory.list();
 
-    await createCarUseCase.execute({
+    let car = await createCarUseCase.execute({
       name: 'Car 1',
       description: 'Car description',
       daily_rate: 100,
@@ -48,8 +48,6 @@ describe('Create Car Specification', () => {
       brand: 'Car brand',
       category_id: 'category',
     });
-
-    let car = await carsRepositoryInMemory.findByLicensePlate('ABC-1234');
 
     const specifications_id = specifications.map((specification) => {
       return specification.id;
