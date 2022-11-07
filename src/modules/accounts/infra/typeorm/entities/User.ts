@@ -4,9 +4,10 @@ import { v4 as uuidV4 } from 'uuid';
 @Entity('users')
 class User {
   constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
+    this.id = uuidV4();
+    this.is_admin = false;
+    this.avatar = null;
+    this.created_at = new Date();
   }
 
   @PrimaryColumn()
