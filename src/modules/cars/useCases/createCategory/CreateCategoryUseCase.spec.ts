@@ -20,11 +20,7 @@ describe('Create a new category', () => {
       description: 'Category description Test',
     };
 
-    await createCategoryUseCase.execute(newCategory);
-
-    const category = await categoriesRepositoryInMemory.findByName(
-      'Category Test'
-    );
+    const category = await createCategoryUseCase.execute(newCategory);
 
     expect(category).toHaveProperty('id');
     expect(category.name).toEqual('Category Test');

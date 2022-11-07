@@ -8,9 +8,12 @@ class CreateSpecificationController {
     const { name, description } = request.body;
 
     const createCategoryUseCase = container.resolve(CreateSpecificationUseCase);
-    await createCategoryUseCase.execute({ name, description });
+    const specification = await createCategoryUseCase.execute({
+      name,
+      description,
+    });
 
-    return response.status(201).send();
+    return response.status(201).json(specification);
   }
 }
 

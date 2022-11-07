@@ -17,8 +17,8 @@ class CarsRepository implements ICarsRepository {
     return this.repository.findOne(id);
   }
 
-  async update(car: Car): Promise<void> {
-    await this.repository.save(car);
+  async update(car: Car): Promise<Car> {
+    return this.repository.save(car);
   }
 
   async listAvailable(filters?: IListAvailableCarsDTO): Promise<Car[]> {
@@ -45,10 +45,10 @@ class CarsRepository implements ICarsRepository {
     return cars;
   }
 
-  async create(data: ICreateCarDTO): Promise<void> {
+  async create(data: ICreateCarDTO): Promise<Car> {
     const car = this.repository.create(data);
 
-    await this.repository.save(car);
+    return this.repository.save(car);
   }
 
   async findByLicensePlate(license_plate: string): Promise<Car> {
