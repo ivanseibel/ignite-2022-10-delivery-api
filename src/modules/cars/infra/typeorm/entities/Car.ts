@@ -15,6 +15,11 @@ import { Specification } from './Specification';
 
 @Entity('cars')
 class Car {
+  constructor() {
+    this.id = uuidV4();
+    this.created_at = new Date();
+  }
+
   @PrimaryColumn()
   id?: string;
 
