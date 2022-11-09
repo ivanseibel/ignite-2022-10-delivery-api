@@ -63,4 +63,6 @@ Use multer to upload images.
 ### Business rules
 
 - The rental should have a minimum duration of 24 hours.
-- There should be no possible overlap of rentals for the same car.
+- should not be able to create a new rental if there is another open to the same user.
+- should not be able to create a new rental if there is another open to the same car.
+- The user must be authenticated in order to create a rental.
