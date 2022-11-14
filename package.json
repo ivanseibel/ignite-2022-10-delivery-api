@@ -8,7 +8,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect=0.0.0.0:9229 --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "start": "node index.js",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest --watch --runInBand",
     "seed": "ts-node-dev ./src/shared/infra/typeorm/seeds/index.ts"
   },
   "dependencies": {
