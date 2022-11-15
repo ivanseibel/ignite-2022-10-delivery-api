@@ -83,3 +83,13 @@ Should be able to close a rental and return a car.
 - If the return time is exceeded, the daily rate should be charged for the additional time.
 - In there is a fine, the total amount should be increased by the fine amount.
 - The user must be authenticated in order to close a rental.
+
+## List rentals
+
+### Functional requirements
+
+- Should be able to list all rentals for a user.
+
+### Business rules
+
+- Users must be authenticated in order to list their rentals.
