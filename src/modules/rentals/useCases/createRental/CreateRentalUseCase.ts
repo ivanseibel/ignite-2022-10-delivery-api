@@ -1,5 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
+import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import AppError from '@shared/errors/AppError';
@@ -19,8 +20,11 @@ class CreateRentalUseCase {
     @inject('RentalsRepository')
     private rentalsRepository: IRentalsRepository,
 
-    @inject('DateFnsDateProvider')
-    private dateProvider: IDateProvider
+    @inject('DateProvider')
+    private dateProvider: IDateProvider,
+
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository
   ) {}
 
   async execute({
@@ -41,17 +45,16 @@ class CreateRentalUseCase {
     );
 
     if (openRentalByUser) {
-      throw new AppError('There is a rental in progress for user!');
+      throw new AppError('There is a rental in progress for user');
     }
 
-    const dateNow = this.dateProvider.dateNow();
-    const compare = this.dateProvider.diffInHours(
+    const diffInHours = this.dateProvider.diffInHours(
       new Date(),
       expected_return_date
     );
 
-    if (compare < MINIMUM_HOURS) {
-      throw new AppError('Invalid return time!');
+    if (diffInHours < MINIMUM_HOURS) {
+      throw new AppError('Invalid return time');
     }
 
     const rental = await this.rentalsRepository.create({
@@ -59,6 +62,8 @@ class CreateRentalUseCase {
       car_id,
       expected_return_date,
     });
+
+    await this.carsRepository.toggleCarAvailability(car_id, false);
 
     return rental;
   }

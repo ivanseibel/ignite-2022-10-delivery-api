@@ -66,3 +66,20 @@ Use multer to upload images.
 - should not be able to create a new rental if there is another open to the same user.
 - should not be able to create a new rental if there is another open to the same car.
 - The user must be authenticated in order to create a rental.
+- When registering a rental, the status of the car should be changed to "unavailable".
+
+## Close rental
+
+### Functional requirements
+
+Should be able to close a rental and return a car.
+
+### Business rules
+
+- If the car is returned before 24 hours, the rental should be charged at a daily rate.
+- When the rental is closed, the car should be available for rental again.
+- When the rental is closed, the user should be able to rent a car again.
+- When the rental is closed, the total amount should be calculated and saved in the rental.
+- If the return time is exceeded, the daily rate should be charged for the additional time.
+- In there is a fine, the total amount should be increased by the fine amount.
+- The user must be authenticated in order to close a rental.

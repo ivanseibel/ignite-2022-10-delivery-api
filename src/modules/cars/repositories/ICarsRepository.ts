@@ -8,6 +8,7 @@ interface ICarsRepository {
   listAvailable(filters?: IListAvailableCarsDTO): Promise<Car[]>;
   findById(id: string): Promise<Car>;
   update(car: Car): Promise<Car>;
+  toggleCarAvailability(id: string, new_status: boolean): Promise<void>;
 }
 
 export { ICarsRepository };

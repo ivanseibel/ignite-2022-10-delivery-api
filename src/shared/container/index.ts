@@ -42,7 +42,4 @@ container.registerSingleton<IRentalsRepository>(
   RentalsRepository
 );
 
-container.registerSingleton<IDateProvider>(
-  'DateFnsDateProvider',
-  DateFnsDateProvider
-);
+container.registerSingleton<IDateProvider>('DateProvider', DateFnsDateProvider);

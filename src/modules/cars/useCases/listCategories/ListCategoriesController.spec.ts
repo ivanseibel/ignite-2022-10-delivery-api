@@ -34,7 +34,6 @@ describe('List Category Controller', () => {
   });
 
   afterAll(async () => {
-    await connection.dropDatabase();
     await connection.close();
   });
 
