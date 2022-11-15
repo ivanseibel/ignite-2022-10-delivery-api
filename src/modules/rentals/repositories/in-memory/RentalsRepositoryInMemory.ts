@@ -6,6 +6,10 @@ import { IRentalsRepository } from '../IRentalsRepository';
 class RentalsRepositoryInMemory implements IRentalsRepository {
   rentals: Rental[] = [];
 
+  async findByUser(user_id: string): Promise<Rental[]> {
+    return this.rentals.filter((rental) => rental.user_id === user_id);
+  }
+
   async update(rental: Rental): Promise<Rental> {
     const findIndex = this.rentals.findIndex(
       (findRental) => findRental.id === rental.id
