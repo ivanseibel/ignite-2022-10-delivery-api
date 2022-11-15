@@ -38,7 +38,7 @@ class CreateCarUseCase {
     );
 
     if (carAlreadyExists) {
-      throw new AppError('Car already exists!');
+      throw new AppError('Car already exists');
     }
 
     return this.carsRepository.create({
