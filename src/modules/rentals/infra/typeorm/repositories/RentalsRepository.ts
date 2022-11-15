@@ -12,6 +12,13 @@ class RentalsRepository implements IRentalsRepository {
     this.repository = getRepository(Rental);
   }
 
+  async findByUser(user_id: string): Promise<Rental[]> {
+    return this.repository.find({
+      where: { user_id },
+      relations: ['car'],
+    });
+  }
+
   async update(rental: Rental): Promise<Rental> {
     return this.repository.save(rental);
   }
