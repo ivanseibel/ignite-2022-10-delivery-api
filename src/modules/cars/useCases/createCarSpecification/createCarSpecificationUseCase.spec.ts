@@ -64,7 +64,9 @@ describe('Create Car Specification', () => {
   });
 
   it('should not be able to add a new specification to a now-existent car', async () => {
-    expect(async () => {
+    expect.assertions(2);
+
+    try {
       const car_id = '1234';
       const specifications_id = ['54321'];
 
@@ -72,6 +74,9 @@ describe('Create Car Specification', () => {
         car_id,
         specifications_id,
       });
-    }).rejects.toBeInstanceOf(AppError);
+    } catch (error) {
+      expect(error).toBeInstanceOf(AppError);
+      expect(error.message).toEqual('Car does not exists');
+    }
   });
 });
