@@ -36,8 +36,8 @@ class CloseRentalUseCase {
 
     const diffInHoursExpected = this.dateProvider.diffInHours(
       rental.start_date,
-      this.dateProvider.dateNow() < rental.expected_return_date
-        ? this.dateProvider.dateNow()
+      this.dateProvider.toUTC() < rental.expected_return_date
+        ? this.dateProvider.toUTC()
         : rental.expected_return_date
     );
 
@@ -47,14 +47,14 @@ class CloseRentalUseCase {
 
     const diffInHoursExceeded = this.dateProvider.diffInHours(
       rental.expected_return_date,
-      this.dateProvider.dateNow()
+      this.dateProvider.toUTC()
     );
 
     if (diffInHoursExceeded > 0) {
       amount += Math.ceil(diffInHoursExceeded / 24) * car.fine_amount;
     }
 
-    rental.end_date = this.dateProvider.dateNow();
+    rental.end_date = this.dateProvider.toUTC();
     rental.total = amount;
 
     const closedRental = await this.rentalsRepository.update(rental);
