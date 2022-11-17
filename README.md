@@ -93,3 +93,16 @@ Should be able to close a rental and return a car.
 ### Business rules
 
 - Users must be authenticated in order to list their rentals.
+
+## Password recovery
+
+### Functional requirements
+
+- Should be able to recover the password using the email.
+- Should be able to receive an email with instructions to recover the password.
+- Should be able to reset the password.
+
+### Business rules
+
+- User needs to provide a new password.
+- The link sent by email to reset the password must expire in 3 hours.
