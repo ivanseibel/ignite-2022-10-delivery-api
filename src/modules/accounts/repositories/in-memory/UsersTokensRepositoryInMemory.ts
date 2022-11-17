@@ -6,6 +6,12 @@ import { IUsersTokensRepository } from '../IUsersTokensRepository';
 class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
   usersTokens: UserToken[] = [];
 
+  async findByRefreshToken(refresh_token: string): Promise<UserToken> {
+    return this.usersTokens.find(
+      (userToken) => userToken.refresh_token === refresh_token
+    );
+  }
+
   async deleteById(id: string): Promise<void> {
     const userToken = this.usersTokens.find((userToken) => userToken.id === id);
 
