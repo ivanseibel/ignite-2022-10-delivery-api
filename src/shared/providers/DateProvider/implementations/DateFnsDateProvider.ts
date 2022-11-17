@@ -1,11 +1,19 @@
-import { addDays, differenceInHours } from 'date-fns';
+import { addDays, addHours, differenceInHours } from 'date-fns';
 import {} from 'date-fns-tz';
 
 import { IDateProvider } from '../IDateProvider';
 
 class DateFnsDateProvider implements IDateProvider {
+  isExpired(date: Date): boolean {
+    return this.toUTC() > this.toUTC(date);
+  }
+
+  addHours(hours: number): Date {
+    return addHours(this.toUTC(), hours);
+  }
+
   addDays(days: number): Date {
-    return addDays(this.dateNow(), days);
+    return addDays(this.toUTC(), days);
   }
 
   diffInHours(start_date: Date, end_date: Date): number {
@@ -13,8 +21,8 @@ class DateFnsDateProvider implements IDateProvider {
     return diff;
   }
 
-  dateNow(): Date {
-    const date = new Date();
+  toUTC(date_to_convert?: Date): Date {
+    const date = date_to_convert ? new Date(date_to_convert) : new Date();
     return new Date(
       Date.UTC(
         date.getFullYear(),
