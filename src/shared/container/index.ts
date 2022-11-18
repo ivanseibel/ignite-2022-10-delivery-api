@@ -16,8 +16,8 @@ import { RentalsRepository } from '@modules/rentals/infra/typeorm/repositories/R
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider';
 import { DateFnsDateProvider } from '@shared/providers/DateProvider/implementations/DateFnsDateProvider';
-import { IMailProvider } from '@shared/providers/EmailProvider/IMailProvider';
-import { EtherealMailProvider } from '@shared/providers/EmailProvider/implementations/EtherealMailProvider';
+import { IMailProvider } from '@shared/providers/MailProvider/IMailProvider';
+import { EtherealMailProvider } from '@shared/providers/MailProvider/implementations/EtherealMailProvider';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',

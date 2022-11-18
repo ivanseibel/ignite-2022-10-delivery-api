@@ -6,7 +6,7 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import AppError from '@shared/errors/AppError';
 import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider';
-import { IMailProvider } from '@shared/providers/EmailProvider/IMailProvider';
+import { IMailProvider } from '@shared/providers/MailProvider/IMailProvider';
 
 @injectable()
 class SendForgottenPasswordMailUseCase {
