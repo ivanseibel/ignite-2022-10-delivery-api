@@ -6,6 +6,7 @@ import { CreateUserController } from '@modules/accounts/useCases/createUser/Crea
 import { ResetUserPasswordController } from '@modules/accounts/useCases/resetUserPassword/ResetUserPasswordController';
 import { SendForgottenPasswordMailController } from '@modules/accounts/useCases/sendForgottenPasswordMail/SendForgottenPasswordMailController';
 import { UpdateUserAvatarController } from '@modules/accounts/useCases/updateUserAvatar/UpdateUserAvatarController';
+import { UserProfileController } from '@modules/accounts/useCases/userProfile/UserProfileController';
 import { ensureAuthenticated } from '@shared/infra/http/middlewares/ensureAuthenticated';
 
 const usersRoutes = Router();
@@ -17,6 +18,7 @@ const updateUserAvatarController = new UpdateUserAvatarController();
 const sendForgottenPasswordMailController =
   new SendForgottenPasswordMailController();
 const resetUserPasswordController = new ResetUserPasswordController();
+const userProfileController = new UserProfileController();
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.patch(
@@ -30,5 +32,6 @@ usersRoutes.post(
   sendForgottenPasswordMailController.handle
 );
 usersRoutes.post('/reset-password', resetUserPasswordController.handle);
+usersRoutes.get('/profile', ensureAuthenticated, userProfileController.handle);
 
 export { usersRoutes };
