@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -33,6 +34,17 @@ class User {
 
   @Column()
   avatar: string;
+
+  @Expose({ name: 'avatar_url' })
+  avatar_url(): string {
+    if (!this.avatar) {
+      return null;
+    }
+
+    return process.env.STORAGE_TYPE === 'local'
+      ? `${process.env.APP_API_URL}/avatar/${this.avatar}`
+      : `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;
+  }
 }
 
 export { User };
