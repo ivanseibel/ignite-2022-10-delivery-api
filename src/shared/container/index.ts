@@ -18,6 +18,8 @@ import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider';
 import { DateFnsDateProvider } from '@shared/providers/DateProvider/implementations/DateFnsDateProvider';
 import { IMailProvider } from '@shared/providers/MailProvider/IMailProvider';
 import { EtherealMailProvider } from '@shared/providers/MailProvider/implementations/EtherealMailProvider';
+import { LocalStorageProvider } from '@shared/providers/StorageProvider/implementations/LocalStorageProvider';
+import { IStorageProvider } from '@shared/providers/StorageProvider/IStorageProvider';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -56,4 +58,9 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerInstance<IMailProvider>(
   'MailProvider',
   new EtherealMailProvider()
+);
+
+container.registerSingleton<IStorageProvider>(
+  'StorageProvider',
+  LocalStorageProvider
 );
