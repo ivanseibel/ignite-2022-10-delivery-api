@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/handlebars": "^4.1.0",
+    "aws-sdk": "^2.1258.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "csv-parse": "^5.3.1",
@@ -33,6 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/date-fns": "^2.6.0",
