@@ -18,6 +18,7 @@ import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider';
 import { DateFnsDateProvider } from '@shared/providers/DateProvider/implementations/DateFnsDateProvider';
 import { IMailProvider } from '@shared/providers/MailProvider/IMailProvider';
 import { EtherealMailProvider } from '@shared/providers/MailProvider/implementations/EtherealMailProvider';
+import { SendGridMailProvider } from '@shared/providers/MailProvider/implementations/SendGridMailProvider';
 import { LocalStorageProvider } from '@shared/providers/StorageProvider/implementations/LocalStorageProvider';
 import { S3StorageProvider } from '@shared/providers/StorageProvider/implementations/S3StorageProvider';
 import { IStorageProvider } from '@shared/providers/StorageProvider/IStorageProvider';
@@ -56,10 +57,21 @@ container.registerSingleton<IUsersTokensRepository>(
   UsersTokensRepository
 );
 
-container.registerInstance<IMailProvider>(
-  'MailProvider',
-  new EtherealMailProvider()
-);
+switch (process.env.MAIL_PROVIDER) {
+  case 'sendgrid':
+    container.registerInstance<IMailProvider>(
+      'MailProvider',
+      container.resolve(SendGridMailProvider)
+    );
+    break;
+
+  default:
+    container.registerInstance<IMailProvider>(
+      'MailProvider',
+      container.resolve(EtherealMailProvider)
+    );
+    break;
+}
 
 const diskStorageProviders = {
   local: LocalStorageProvider,
@@ -68,5 +80,5 @@ const diskStorageProviders = {
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  diskStorageProviders[process.env.STORAGE_TYPE]
+  diskStorageProviders[process.env.STORAGE_PROVIDER]
 );
