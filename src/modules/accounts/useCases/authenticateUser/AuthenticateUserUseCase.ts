@@ -2,7 +2,6 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-import auth from '@config/auth';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import AppError from '@shared/errors/AppError';
@@ -43,23 +42,26 @@ class AuthenticateUserUseCase {
     }
 
     const passwordMatch = await compare(password, user.password);
+
     if (!passwordMatch) {
       throw new AppError('Email or password incorrect', 401);
     }
 
-    const token = sign({}, auth.token.secret, {
+    const token = sign({}, process.env.TOKEN_SECRET, {
       subject: user.id,
-      expiresIn: auth.token.expiresIn,
+      expiresIn: process.env.TOKEN_EXPIRES_IN,
     });
 
-    const refresh_token = sign({ email }, auth.refreshToken.secret, {
+    const refresh_token = sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
       subject: user.id,
-      expiresIn: auth.refreshToken.expiresIn,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
     });
 
     await this.usersTokensRepository.create({
       user_id: user.id,
-      expires_date: this.dateProvider.addDays(auth.refreshToken.expiresInDays),
+      expires_date: this.dateProvider.addDays(
+        Number(process.env.REFRESH_TOKEN_EXPIRES_IN_DAYS)
+      ),
       refresh_token,
     });
 

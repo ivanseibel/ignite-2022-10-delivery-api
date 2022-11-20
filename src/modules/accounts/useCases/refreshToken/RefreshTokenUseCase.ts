@@ -1,7 +1,6 @@
 import { verify, sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-import auth from '@config/auth';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider';
 
@@ -28,7 +27,7 @@ class RefreshTokenUseCase {
   async execute(refresh_token: string): Promise<ITokenResponse> {
     const { email, sub: user_id } = verify(
       refresh_token,
-      auth.refreshToken.secret
+      process.env.REFRESH_TOKEN_SECRET
     ) as IPayload;
 
     const userToken =
@@ -43,20 +42,22 @@ class RefreshTokenUseCase {
 
     await this.usersTokensRepository.deleteById(userToken.id);
 
-    const newRefreshToken = sign({ email }, auth.refreshToken.secret, {
+    const newRefreshToken = sign({ email }, process.env.REFRESH_TOKEN_SECRET, {
       subject: user_id,
-      expiresIn: auth.refreshToken.expiresIn,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
     });
 
     await this.usersTokensRepository.create({
       user_id,
       refresh_token: newRefreshToken,
-      expires_date: this.dateProvider.addDays(auth.refreshToken.expiresInDays),
+      expires_date: this.dateProvider.addDays(
+        Number(process.env.REFRESH_TOKEN_EXPIRES_IN_DAYS)
+      ),
     });
 
-    const newToken = sign({}, auth.token.secret, {
+    const newToken = sign({}, process.env.TOKEN_SECRET, {
       subject: user_id,
-      expiresIn: auth.token.expiresIn,
+      expiresIn: process.env.TOKEN_EXPIRES_IN,
     });
 
     return { token: newToken, refresh_token: newRefreshToken };

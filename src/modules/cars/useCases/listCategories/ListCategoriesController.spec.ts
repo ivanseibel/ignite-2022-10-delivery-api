@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { hash } from 'bcrypt';
 import request from 'supertest';
 import { Connection } from 'typeorm';

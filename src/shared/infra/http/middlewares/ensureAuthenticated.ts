@@ -17,7 +17,7 @@ async function ensureAuthenticated(
 
   const [, token] = authorization.split(' ');
 
-  const { sub: user_id } = verify(token, 'd757dfd2421525dd8ba7eba884bf644a');
+  const { sub: user_id } = verify(token, process.env.TOKEN_SECRET);
 
   const usersRepository = new UsersRepository();
 

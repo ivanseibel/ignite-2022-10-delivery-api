@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 
 import { CreateCarUseCase } from '../createCar/CreateCarUseCase';

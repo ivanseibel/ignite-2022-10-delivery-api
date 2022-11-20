@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { add } from 'date-fns';
 
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
