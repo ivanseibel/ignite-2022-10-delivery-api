@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';

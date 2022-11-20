@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import { SpecificationsRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory';
 import AppError from '@shared/errors/AppError';
