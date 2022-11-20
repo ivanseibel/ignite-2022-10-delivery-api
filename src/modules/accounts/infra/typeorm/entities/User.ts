@@ -41,7 +41,7 @@ class User {
       return null;
     }
 
-    return process.env.STORAGE_TYPE === 'local'
+    return process.env.STORAGE_PROVIDER === 'local'
       ? `${process.env.APP_API_URL}/avatar/${this.avatar}`
       : `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;
   }
