@@ -3,7 +3,7 @@ node_modules
 yarn-error.log
 .env
 coverage
-
+dist/
 
 # Local .terraform directories
 **/.terraform/*
