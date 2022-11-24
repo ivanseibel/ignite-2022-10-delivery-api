@@ -7,7 +7,7 @@ interface IOptions extends PostgresConnectionOptions {
 }
 
 export async function databaseConnect(
-  host = 'database',
+  host = 'localhost',
   database = 'rentapi'
 ): Promise<Connection | undefined> {
   try {
@@ -15,7 +15,11 @@ export async function databaseConnect(
 
     connectionOptions.host =
       process.env.NODE_ENV === 'test' ? 'localhost' : host;
+
     connectionOptions.database = database;
+
+    console.log(process.env.NODE_ENV, connectionOptions);
+
     const connection = await createConnection({
       ...connectionOptions,
     });
