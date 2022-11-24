@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "images" {
-  bucket = random_pet.bucket_name.id
+  bucket        = random_pet.bucket_name.id
   force_destroy = true
 }
 
