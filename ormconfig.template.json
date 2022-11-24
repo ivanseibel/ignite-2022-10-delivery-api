@@ -2,8 +2,8 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "docker",
-  "password": "secret",
+  "username": "",
+  "password": "",
   "database": "rentapi",
   "entities": [
     "./src/modules/**/entities/*.ts"

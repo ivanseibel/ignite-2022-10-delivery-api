@@ -4,6 +4,7 @@ yarn-error.log
 .env
 coverage
 dist/
+ormconfig.json
 
 # Local .terraform directories
 **/.terraform/*
