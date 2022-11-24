@@ -9,3 +9,9 @@ variable "profile" {
   type        = string
   default     = "tfpersonal"
 }
+
+variable "instance_type" {
+  type        = string
+  description = "The instance power"
+  default     = "t2.micro"
+}
