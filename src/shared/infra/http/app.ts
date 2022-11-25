@@ -10,6 +10,7 @@ import { databaseConnect } from '@shared/infra/typeorm';
 import '@shared/container';
 
 import swaggerFile from '../../../swagger.json';
+import rateLimiter from './middlewares/rateLimiter';
 import { router } from './routes';
 
 async function initializeDatabase() {
@@ -27,6 +28,7 @@ async function initializeDatabase() {
 
 const app = express();
 
+app.use(rateLimiter);
 app.use(express.json());
 app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
