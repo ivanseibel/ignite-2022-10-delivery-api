@@ -50,4 +50,5 @@ jobs:
             yarn build
             ./node_modules/.bin/typeorm migration:run
             node dist/shared/infra/typeorm/seeds/index.js
+            cp ../settings/ormconfig.json .
             pm2 restart server
