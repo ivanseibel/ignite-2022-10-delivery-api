@@ -51,4 +51,5 @@ jobs:
             ./node_modules/.bin/typeorm migration:run
             node dist/shared/infra/typeorm/seeds/index.js
             cp ../settings/ormconfig.json .
-            pm2 restart server
+            pm2 stop server
+            pm2 start dist/shared/infra/http/server.js --name server
