@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd app/api-rentex
+            cd ~/app/api-rentex
             yarn
             yarn build
             ./node_modules/.bin/typeorm migration:run
