@@ -30,6 +30,8 @@ async function initializeDatabase() {
 
 const app = express();
 
+app.use(rateLimiter);
+
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
@@ -50,11 +52,12 @@ if (process.env.NODE_ENV === 'production') {
 // RequestHandler creates a separate execution context using domains, so that every
 // transaction/span/breadcrumb is attached to its own Hub instance
 app.use(Sentry.Handlers.requestHandler());
+
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-app.use(rateLimiter);
 app.use(express.json());
+
 app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
@@ -62,17 +65,7 @@ app.use(express.static(`${upload.tmpFolder}`));
 
 app.use(router);
 
-app.use(
-  Sentry.Handlers.errorHandler({
-    shouldHandleError(error) {
-      // Capture all 404 and 500 errors
-      if (error.status === 429 || error.status === 500) {
-        return true;
-      }
-      return false;
-    },
-  })
-);
+app.use(Sentry.Handlers.errorHandler());
 
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
