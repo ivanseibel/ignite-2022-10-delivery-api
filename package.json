@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "@sentry/node": "^7.21.1",
+    "@sentry/tracing": "^7.21.1",
     "@types/handlebars": "^4.1.0",
     "aws-sdk": "^2.1258.0",
     "bcrypt": "^5.1.0",
