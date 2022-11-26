@@ -18,8 +18,6 @@ export async function databaseConnect(
 
     connectionOptions.database = database;
 
-    console.log(process.env.NODE_ENV, connectionOptions);
-
     const connection = await createConnection({
       ...connectionOptions,
     });

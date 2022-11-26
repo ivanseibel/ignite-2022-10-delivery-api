@@ -1,12 +1,10 @@
 import { hash } from 'bcrypt';
-import { getConnection } from 'typeorm';
+import { Connection } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-async function createAdminUser() {
+async function createAdminUser(connection: Connection) {
   const id = uuidV4();
   const password = await hash('admin', 8);
-
-  const connection = getConnection();
 
   await connection
     .query(
@@ -14,8 +12,6 @@ async function createAdminUser() {
     values('${id}', 'admin', 'admin@email.com', '${password}', true, 'now()', 'XXXXXX')`
     )
     .then(() => console.log('Admin user created!'));
-
-  await connection.close();
 }
 
 export { createAdminUser };
